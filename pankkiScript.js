@@ -19,21 +19,9 @@ class Pankki {
         document.getElementById("saldoEnnen").innerHTML = "Saldosi ennen tapahtumaa oli: " + tarkastus;
 
     }
-    nosta() {
-        var tarkastus = this.saldo;
-
-        nostaRahaa = parseInt(prompt("Paljonko haluat nostaa rahaa?"));
-        if (nostaRahaa <= this.saldo) {
-           this.saldo -= nostaRahaa;
-        } else {
-            alert ("Virhe! Tililläsi ei ole katetta.");
-        }
-        this.historia.push(aika() + " Nostit rahaa " + nostaRahaa);
-        console.log(this.saldo);
-        document.getElementById("saldoEnnen").innerHTML = "Saldosi ennen tapahtumaa oli: " + tarkastus;
-    }
+    
     naytaTiedot() {
-        document.getElementById("asiakasTiedot").innerHTML = "Tilinumerosi on:" + " " + "FI6484062814942054" + this.tilinumero + '<br>' + "Tilin saldo on:" + " " + this.saldo + "€" + '<br>' + "Tilisi historia:";
+        document.getElementById("asiakasTiedot").innerHTML = "Tilinumerosi on:" + " " + this.tilinumero + '<br>' + "Tilin saldo on:" + " " + this.saldo + "€" + '<br>' + "Tilisi historia:";
     }
     naytaHistoria() {
         var t = "";
@@ -45,7 +33,37 @@ class Pankki {
     }
 }
 
-let tili = new Pankki();
+class Pankki2 extends Pankki{
+    constructor(tilinumero, saldo, historia){
+        super(tilinumero, saldo, historia);
+    }
+    tiliNumero() {
+        var tNumero = prompt("Mikä on tilinumerosi?");
+        var regex = /[A-Z]{2}\d{2} ?\d{4} ?\d{4} ?\d{4} ?\d{2} ?[\d]{0,0}/;
+        
+        if (regex.test(tNumero)) {
+            this.tilinumero = tNumero;
+        } else {
+        console.log("Tilinumero on virheellinen");   
+        }
+    }
+    nosta() {
+        var tarkastus = this.saldo;
+
+        nostaRahaa = parseInt(prompt("Paljonko haluat nostaa rahaa?"));
+        if (nostaRahaa <= this.saldo) {
+           this.saldo -= nostaRahaa;
+           this.historia.push(aika() + " Nostit rahaa " + nostaRahaa);
+           console.log(this.saldo);
+           document.getElementById("saldoEnnen").innerHTML = "Saldosi ennen tapahtumaa oli: " + tarkastus;
+        } else {
+            alert ("Virhe! Tililläsi ei ole katetta.");
+        }
+    }
+}
+
+let tili = new Pankki2();
+
 
 function aika (){
     var date = new Date;
