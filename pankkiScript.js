@@ -64,34 +64,36 @@ class Pankki {
     }
     lainanMaksu() {
         if (tilitehty == true) {
-            var maksettuLaina = Number(document.getElementById("lainanMaksu").value)
+            var maksettuLaina = Number(prompt("Paljon haluat maksaa lainaasi"))
             if(isNaN(maksettuLaina) == true){ 
                console.log("Syötä vain numeroita");
-               document.getElementById("lainanmaksuTeksti").innerHTML = "Syötä vain numeroita";
+            
             }else{
                 if(maksettuLaina <= -1){ 
-                    document.getElementById("lainanmaksuTeksti").innerHTML = "Älä syötä negatiivisia lukuja";
+                    
                 } else{
                     console.log(this.lainaaJaljella , maksettuLaina ,   this.lainaaJaljella - maksettuLaina);
                     if(this.lainaaJaljella - maksettuLaina == NaN){
                         if(maksettuLaina < 0){
-                            document.getElementById("lainanmaksuTeksti").innerHTML = "Lainasi menee miinukselle";
+                            
                         }
                     }else{
                         if(this.lainaaJaljella - maksettuLaina <= -1){
-                            document.getElementById("lainanmaksuTeksti").innerHTML = "Lainasi menee miinukselle";
-                        } else {
                             
+                        } else {
+
                             this.lainaaJaljella = muisti[0] - maksettuLaina;
+                            console.log(this.lainaaJaljella);
+
                             muisti.splice([0],1,this.lainaaJaljella )
-    
-                            document.getElementById("lainanmaksuTeksti").innerHTML = "Maksoit lainaasi: " + maksettuLaina + "€";
+                            console.log(maksettuLaina);
                             this.korkoPlusLainaClassGlobal = this.lainaaJaljella;
-                            this.historia.push(hankiAika() + ": Maksoit lainaa " + maksettuLaina + "€. Laina ennen maksua: " + this.lainaEnnen + "€. Maksun jälkeen: " + this.lainaaJaljella + "€.")
+                            this.historia.push(aika() + ": Maksoit lainaa " + maksettuLaina + "€. Laina ennen maksua: " + this.lainaaJaljella + "€.");
+                            
                         }
                     }
                 }
-            }   
+            }
         }
     }
     netto(){
